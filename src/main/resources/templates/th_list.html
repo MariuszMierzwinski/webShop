@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="/path/to/jquery.min.js"></script>
+    <script src="/path/to/bootstrap.min.js"></script>
+    <script src="bootstable.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div>
+        <div class="center-block"><h1 class="text-center">User List</h1></div>
+    </div>
+</div>
+
+<div id="table" >
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Login</th>
+            <th>First Name</th>
+            <th>Sure Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user,itemStat : ${lista}">
+            <!--<td><input th:field="*{books[__${itemStat.index}__].title}" /></td>-->
+       <!--     <td><input th:field="*{lista[__${user}__].firstName}" /></td>-->
+            <td class="pt-3-half" contenteditable="true" th:text="${user.getLogin()}"></td>
+            <td class="pt-3-half" contenteditable="true" th:text="${user.getFirstName()}"></td>
+            <td class="pt-3-half" contenteditable="true" th:text="${user.getSureName()}"></td>
+            <td>
+                <form action="#" th:action="@{/delete/}+${user.id}" method="post">
+                    <button th:id="user" type="submit">
+                        <i>remove</i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <div>
+        <div class="center-block"><h1 class="text-center">Add user</h1></div>
+    </div>
+</div>
+
+
+<form action="#" th:action="@{/list}" th:object="${user}" method="post">
+    <div class="form-group row">
+        <div class="col">
+            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First name">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" th:field="*{sureName}" placeholder="Last name">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" th:field="*{login}" placeholder="Login">
+        </div>
+        <div class="col">
+            <button th:id="user" type="submit" value="Add"><i>Add</i></button>
+           <!-- <input class="btn btn-md btn-success btn-block" stype="submit" value="Add">-->
+        </div>
+
+
+    </div>
+</form>
+
+
+</body>
+</html>

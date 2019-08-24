@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="/path/to/jquery.min.js"></script>
+    <script src="/path/to/bootstrap.min.js"></script>
+    <script src="bootstable.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/pricing/">
+
+    <title>Title</title>
+</head>
+
+<body>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+<!-- Custom styles for this template -->
+<link href="pricing.css" rel="stylesheet">
+</head>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Sport Shop SDA JSP</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="basket.jsp">Basket</a>
+        <a class="p-2 text-dark" href="#">Control Panel</a>
+        <a class="btn btn-outline-primary" action href="${pageContext.request.contextPath}">HOME</a>
+    </nav>
+    <a class="btn btn-outline-primary" action href="sign_In.jsp">ADMIN</a>
+</div>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Sport products</h1>
+    <p class="lead">Store mission, some healthy lifestyle promotion</p>
+</div>
+<div class="container">
+
+    <div class="card-deck mb-3 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <span>Product</span>
+                </div>
+                <div class="col-sm">
+                    <span>Price</span>
+                </div>
+                <div class="col-sm">
+                    <span>Product size</span>
+                </div>
+                <div class="col-sm">
+                    <span>Colour</span>
+                </div>
+                <div class="col-sm">
+                    <span>Sex</span>
+                </div>
+                <div class="col-sm">
+                    <span>Quantity</span>
+                </div>
+                <div class="col-sm">
+                    <span></span>
+                </div>
+                <div class="col-sm">
+                    <span></span>
+                </div>
+                <div class="container">
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+                <th:foreach th:each="product : ${products}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <span th:text=${product.name}></span>
+                            </div>
+                            <div class="col-sm">
+                                <span th:text=${product.price}></span>
+                            </div>
+                            <div class="col-sm">
+                                <span th:text=${product.size}></span>
+                            </div>
+                            <div class="col-sm">
+                                <span th:text=${product.colour}></span>
+                            </div>
+                            <div class="col-sm">
+                                <span th:text=${product.sex}></span>
+                            </div>
+                            <div class="col-sm">
+                                <span th:text=${product.quantity}></span>
+                            </div>
+                            <div class="col-sm">
+                                <form action="#" th:action="@{/admin_inc/}+${product.id}" method="post">
+                                    <button th:id="product" type="submit">
+                                        <i th:text="${product.id}">-</i>
+                                    </button>
+                                <!--<a th:href="admin_inc?id=${product.id}&add=dec" class="btn btn-primary btn-sm"
+                                   type="button">-</a>-->
+                            </div>
+                            <div class="col-sm">
+                                <a href="productManagement?id=${product.id}&add=inc" class="btn btn-primary btn-sm"
+                                   type="button">+</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </th:foreach>
+                <div class="container">
+                    <br>
+                </div>
+                <div class="container">
+                    <h3>Add Products</h3>
+                </div>
+                <div class="container">
+                    <br>
+                </div>
+                <div class="container">
+
+                    <form action="#" th:action="@{/admin_add}" th:object="${product}" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" name="name" placeholder="name">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="price" placeholder="price">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="size" placeholder="size">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="colour" placeholder="colour">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="sex" placeholder="sex">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="quantity" placeholder="quantity">
+                            </div>
+                        </div>
+                        <div class="container">
+                            <br>
+                        </div>
+
+                        <button type="submit" class="col-sm">Submit
+                        </button>
+                    </form>
+                </div>
+                <!--</c:forEach>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
