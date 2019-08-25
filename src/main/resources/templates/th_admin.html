@@ -41,9 +41,9 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="basket.jsp">Basket</a>
         <a class="p-2 text-dark" href="#">Control Panel</a>
-        <a class="btn btn-outline-primary" action href="${pageContext.request.contextPath}">HOME</a>
+        <a class="btn btn-outline-primary" action th:href="@{/}">HOME</a>
     </nav>
-    <a class="btn btn-outline-primary" action href="sign_In.jsp">ADMIN</a>
+    <a class="btn btn-outline-primary" action href="/login">ADMIN</a>
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -107,16 +107,25 @@
                                 <span th:text=${product.quantity}></span>
                             </div>
                             <div class="col-sm">
-                                <form action="#" th:action="@{/admin_inc/}+${product.id}" method="post">
+                                <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/dec}" method="post">
                                     <button th:id="product" type="submit">
-                                        <i th:text="${product.id}">-</i>
+                                        <i >-</i>
                                     </button>
-                                <!--<a th:href="admin_inc?id=${product.id}&add=dec" class="btn btn-primary btn-sm"
-                                   type="button">-</a>-->
+                                </form>
                             </div>
                             <div class="col-sm">
-                                <a href="productManagement?id=${product.id}&add=inc" class="btn btn-primary btn-sm"
-                                   type="button">+</a>
+                                <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/inc}" method="post">
+                                    <button th:id="product" type="submit">
+                                        <i >+</i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                <form action="#" th:action="@{/admin_remove/}+${product.id}" method="post">
+                                    <button th:id="product" type="submit">
+                                        <i >remove</i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -132,7 +141,6 @@
                     <br>
                 </div>
                 <div class="container">
-
                     <form action="#" th:action="@{/admin_add}" th:object="${product}" method="post">
                         <div class="row">
                             <div class="col">

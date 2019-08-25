@@ -1,7 +1,6 @@
 package com.example.webshop.controllers;
 
 import com.example.webshop.models.Product;
-import com.example.webshop.models.User;
 import com.example.webshop.services.ProductService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,29 +27,23 @@ public class AdminControler {
         request.setAttribute("products", productService.findAll());
         return "th_admin";
     }
-    @PostMapping("admin_inc/{id}")
-    public String incQuantityOfProduct(@PathVariable String id) throws NotFoundException {
-       productService.editProductQuantity(productService.findById((Long.parseLong(id))),"as");
-        System.out.println(id);
-       return "redirect:/admin";
+
+    @PostMapping("admin_inc/{id}/{act}")
+    public String incQuantityOfProduct(@PathVariable String id, @PathVariable String act) throws NotFoundException {
+        productService.editProductQuantity(productService.findById((Long.parseLong(id))), act);
+        return "redirect:/admin";
     }
+
     @RequestMapping(value = "admin_add", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute Product product){
+    public String addProduct(@ModelAttribute Product product) {
         productService.addProduct(product);
-        return "redirect:admin";
+        return "redirect:/admin";
     }
-   /* public String createNewProductFromRequest(HttpServletRequest req) {
-        System.out.println("POSTPOSTPOSTPOSTPOSTPOSTPOSTPOSTPOST");
-        String size = req.getParameter("size");
-        System.out.println(size);
-        String name = req.getParameter("name");
-        System.out.println(name);
-        String colour = req.getParameter("colour");
-        String sex = req.getParameter("sex");
-        double price = Double.parseDouble(req.getParameter("price"));
-        long quantity = Long.parseLong(req.getParameter("quantity"));
-        new Product(size, name, colour, sex, price, quantity, 0);
-        return "adminView";*/
+    @PostMapping("admin_remove/{id}")
+    public String removeProduct(@PathVariable String id) throws NotFoundException {
+        productService.removeProduct(productService.findById(Long.parseLong(id)));
+        return "redirect:/admin";
     }
+}
 
 

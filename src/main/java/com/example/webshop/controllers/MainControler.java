@@ -1,6 +1,9 @@
 package com.example.webshop.controllers;
+
+import com.example.webshop.models.User;
 import com.example.webshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,19 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MainControler {
     private ProductService productService;
+
     @Autowired
     public MainControler(ProductService productService) {
         this.productService = productService;
     }
-    @GetMapping({"/","/home"})
-    public String getListProduct(HttpServletRequest request){
-       // @RequestAttribute("productList") productService.findAll();
 
+    @GetMapping({"/", "/home"})
+    public String getListProduct(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
         request.setAttribute("productList", productService.findAll());
-        request.getSession().setAttribute("name","John");
-        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-
-
+        String userName = (user == null) ? "Anonymous" : user.getFirstName();
+        request.getSession().setAttribute("name", userName);
         return "home";
     }
 }

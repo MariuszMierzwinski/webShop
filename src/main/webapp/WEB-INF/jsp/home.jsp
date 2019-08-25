@@ -8,6 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib  uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -41,13 +43,22 @@
     <link href="pricing.css" rel="stylesheet">
 </head>
 <body>
+
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">Sport Shop SDA JSP</h5>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="basket.jsp">Basket</a>
-        <a class="p-2 text-dark" href="#">Control Panel</a>
+        <c:if test="${pageContext.request.isUserInRole('admin')}">
+            <a class="p-2 text-dark" href="/admin">Control Panel</a>
+        </c:if>
+
     </nav>
-    <a class="btn btn-outline-primary" action href="sign_In.jsp">${sessionScope.name}</a>
+ <%--   <sec:authentication property=”principal.username”></sec:authentication>--%>
+
+    <a class="btn btn-outline-primary" action href="/login">
+        <security:authorize access="isAuthenticated()">
+            <security:authentication property="principal.username" />
+        </security:authorize></a>
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">

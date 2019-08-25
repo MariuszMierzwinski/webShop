@@ -33,12 +33,18 @@ public class ProductService {
     public void addProduct(Product product) {
         productRepository.save(product);
     }
-    public  void editProduct(Product product){
-
+    public void removeProduct(Product product) {
+        productRepository.delete(product);
     }
-
-    public void editProductQuantity(Product product, String action) {
-        productRepository.findById(product.getId()).get().setQuantity(product.getQuantity() - 1);
+    public Product editProductQuantity(Product product, String act) {
+        Product editProduct = productRepository.findById(product.getId()).get();
+        if ("dec".equalsIgnoreCase(act)) {
+            editProduct.setQuantity(product.getQuantity() - 1);
+        } else {
+            editProduct.setQuantity(product.getQuantity() + 1);
+        }
+        productRepository.save(editProduct);
+        return editProduct;
     }
 
 }

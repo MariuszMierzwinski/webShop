@@ -23,18 +23,22 @@ public class UserService {
     public User findById(long id) throws NotFoundException {
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found: " + id));
     }
+
     public void addUser(User user) {
         userRepository.save(user);
     }
+
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
-/*    public void editUser(User user,User editUser){
-     userRepository.s
-    }*/
+
     public List<User> findAll() {
         List<User> list = new ArrayList<>();
         userRepository.findAll().forEach(x -> list.add(x));
         return list;
+    }
+
+    public void editUser(User user) {
+        userRepository.save(user);
     }
 }

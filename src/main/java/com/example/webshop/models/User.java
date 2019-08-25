@@ -22,7 +22,7 @@ public class User implements Serializable {
     @Column(name = "sure_name")
     private String sureName;
     private String login;
-
+    private String password;
 
 
     public String getFirstName() {
@@ -43,6 +43,14 @@ public class User implements Serializable {
 
     public User(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 

@@ -25,6 +25,7 @@
             <th>Login</th>
             <th>First Name</th>
             <th>Sure Name</th>
+            <th>Password</th>
         </tr>
         </thead>
         <tbody>
@@ -34,10 +35,18 @@
             <td class="pt-3-half" contenteditable="true" th:text="${user.getLogin()}"></td>
             <td class="pt-3-half" contenteditable="true" th:text="${user.getFirstName()}"></td>
             <td class="pt-3-half" contenteditable="true" th:text="${user.getSureName()}"></td>
+            <td class="pt-3-half" contenteditable="true" th:text="${user.getPassword()}"></td>
             <td>
                 <form action="#" th:action="@{/delete/}+${user.id}" method="post">
                     <button th:id="user" type="submit">
                         <i>remove</i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="#" th:action="@{/edit/}+${user.id}" method="post">
+                    <button th:id="user" type="submit">
+                        <i>edit</i>
                     </button>
                 </form>
             </td>
@@ -63,6 +72,9 @@
         </div>
         <div class="col">
             <input type="text" class="form-control" th:field="*{login}" placeholder="Login">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" th:field="*{password}" placeholder="Password">
         </div>
         <div class="col">
             <button th:id="user" type="submit" value="Add"><i>Add</i></button>
