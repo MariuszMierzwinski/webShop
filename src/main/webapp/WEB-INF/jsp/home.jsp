@@ -48,10 +48,9 @@
     <h5 class="my-0 mr-md-auto font-weight-normal">Sport Shop SDA JSP</h5>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="basket.jsp">Basket</a>
-        <c:if test="${pageContext.request.isUserInRole('admin')}">
+        <sec:authorize access="hasRole('ADMIN')">
             <a class="p-2 text-dark" href="/admin">Control Panel</a>
-        </c:if>
-
+        </sec:authorize>
     </nav>
  <%--   <sec:authentication property=”principal.username”></sec:authentication>--%>
 
@@ -67,19 +66,19 @@
 </div>
 <div class="container">
 
-    <div class="card-deck mb-3 text-center">
+    <div class="card-deck mb-4 text-center">
         <c:forEach var="product" items="${requestScope.productList}">
             <div class="row">
                 <div class="col-3">
-                    <div class="card mb-4 shadow-sm" style="width: 250px; height: 350px">
+                    <div class="card mb-3 shadow-sm" style="width: 250px; height: 350px">
                         <div style="height: 150px;">
                             <h4 class="my-0 font-weight-normal">${product.name}</h4>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">${product.price}
+                            <img class="mb-2" src="${product.picture}" height="100" width="100">
                                 <small class="text-muted">$</small>
-                            </h1>
-                            <ul class="list-unstyled mt-3 mb-4">
+                            <ul class="list-unstyled mt-2 mb-1">
+                                <li>${product.price}</li>
                                 <li>${product.size}</li>
                                 <li>${product.colour}</li>
                                 <li>${product.sex}</li>
@@ -96,7 +95,7 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">
-                <img class="mb-2" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+                <img class="mb-2" src="/Picture/lion.jpeg" alt="" width="80" height="80">
                 <small class="d-block mb-3 text-muted">&copy; 2017-2019</small>
             </div>
             <div class="col-6 col-md">

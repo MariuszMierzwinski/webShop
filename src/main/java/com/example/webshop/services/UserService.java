@@ -38,7 +38,4 @@ public class UserService {
         return list;
     }
 
-    public void editUser(User user) {
-        userRepository.save(user);
-    }
 }

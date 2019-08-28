@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class AdminControler {
+public class AdminController {
     private ProductService productService;
 
     @Autowired
-    public AdminControler(ProductService productService) {
+    public AdminController(ProductService productService) {
         this.productService = productService;
     }
+
+
 
     @GetMapping("/admin")
     public String getListProduct(HttpServletRequest request, Model model) {
@@ -44,6 +45,8 @@ public class AdminControler {
         productService.removeProduct(productService.findById(Long.parseLong(id)));
         return "redirect:/admin";
     }
+
+
 }
 
 

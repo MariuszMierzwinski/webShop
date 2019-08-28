@@ -3,7 +3,6 @@ package com.example.webshop.controllers;
 import com.example.webshop.models.User;
 import com.example.webshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -26,4 +25,5 @@ public class MainControler {
         request.getSession().setAttribute("name", userName);
         return "home";
     }
+
 }

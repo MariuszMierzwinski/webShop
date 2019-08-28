@@ -18,11 +18,12 @@ public class Product {
     private Basket basket;
     @ManyToOne
     private Transaction transaction;
+    private String picture;
 
     public Product() {
     }
 
-    public Product(String size, String name, String colour, String sex, double price, long quantity, long reserved) {
+   /* public Product(String size, String name, String colour, String sex, double price, long quantity, long reserved) {
         this.size = size;
         this.name = name;
         this.colour = colour;
@@ -30,6 +31,19 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.reserved = reserved;
+
+    }
+*/
+
+    public Product(String name, String size, String colour, String sex, double price, long quantity, long reserved, String picture) {
+        this.name = name;
+        this.size = size;
+        this.colour = colour;
+        this.sex = sex;
+        this.price = price;
+        this.quantity = quantity;
+        this.reserved = reserved;
+        this.picture = picture;
     }
 
     public long getId() {
@@ -110,5 +124,13 @@ public class Product {
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

@@ -54,7 +54,7 @@ public class UserListController {
 
     @PostMapping("/editable")
     public String edit(@ModelAttribute User user_to_edit)  {
-        userService.editUser(user_to_edit);
+        userService.addUser(user_to_edit);
         return "redirect:/list";
     }
 

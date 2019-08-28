@@ -25,6 +25,11 @@ public class User implements Serializable {
     private String password;
 
 
+
+    public User() {
+    }
+
+
     public String getFirstName() {
         return firstName;
     }
@@ -53,9 +58,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-
-    public User() {
-    }
 
     @Override
     public String toString() {
