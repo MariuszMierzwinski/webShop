@@ -15,7 +15,6 @@ public class User implements Serializable {
     private long id;
     @OneToOne
     @JoinColumn(name = "address", referencedColumnName = "id")
-
     private Address address;
     @Column(name = "first_name")
     private String firstName;
@@ -23,8 +22,6 @@ public class User implements Serializable {
     private String sureName;
     private String login;
     private String password;
-
-
 
     public User() {
     }

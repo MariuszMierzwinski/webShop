@@ -1,11 +1,14 @@
 package com.example.webshop.models;
 
+import com.example.webshop.services.CategoryService;
+
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Product")
+@Table(name="product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id;
     private String name;
     private String size;
@@ -20,7 +23,38 @@ public class Product {
     private Transaction transaction;
     private String picture;
 
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                ", colour='" + colour + '\'' +
+                ", sex='" + sex + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", reserved=" + reserved +
+                ", basket=" + basket +
+                ", transaction=" + transaction +
+                ", picture='" + picture + '\'' +
+                ", category=" + category +
+                '}';
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Product() {
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
    /* public Product(String size, String name, String colour, String sex, double price, long quantity, long reserved) {
@@ -36,6 +70,7 @@ public class Product {
 */
 
     public Product(String name, String size, String colour, String sex, double price, long quantity, long reserved, String picture) {
+
         this.name = name;
         this.size = size;
         this.colour = colour;
@@ -44,6 +79,8 @@ public class Product {
         this.quantity = quantity;
         this.reserved = reserved;
         this.picture = picture;
+
+
     }
 
     public long getId() {
@@ -133,4 +170,5 @@ public class Product {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
 }

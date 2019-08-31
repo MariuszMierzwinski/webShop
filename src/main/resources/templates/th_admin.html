@@ -4,9 +4,6 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="/path/to/jquery.min.js"></script>
-    <script src="/path/to/bootstrap.min.js"></script>
-    <script src="bootstable.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -32,13 +29,13 @@
         }
     }
 </style>
-<!-- Custom styles for this template -->
-<link href="pricing.css" rel="stylesheet">
+
 </head>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">Sport Shop SDA JSP</h5>
     <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/category">add category</a>
         <a class="p-2 text-dark" href="/tranzaction">List tranzactions</a>
         <a class="p-2 text-dark" href="/list">Users list</a>
         <a class="btn btn-outline-primary" action th:href="@{/}">HOME</a>
@@ -106,8 +103,15 @@
                 <div class="col-sm">
                     <span th:text=${product.quantity}></span>
                 </div>
+                <th:foreach th:each="cat : ${product.category }">
+                    <div class="col-sm">
+
+                        <span th:text=${cat.name}></span>
+                    </div>
+                </th:foreach>
                 <div class="col-sm">
-                    <img class="mb-2" src="'../webapp'+${product.picture}}" th:src="@{${product.picture}}" height="24" width="24">
+                    <img class="mb-2" src="'../webapp'+${product.picture}" th:src="@{${product.picture}}" height="24"
+                         width="24">
                 </div>
                 <div class="col-sm">
                     <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/dec}" method="post">
@@ -130,11 +134,10 @@
                         </button>
                     </form>
                 </div>
-                <div class="col-sm">
-
-                    <form method="POST"  action="#" th:action="@{/upload/}+${product.id}"   enctype="multipart/form-data">
+                <div class="form-group mb-auto">
+                    <form method="POST" action="#" th:action="@{/upload/}+${product.id}" enctype="multipart/form-data">
                         <input type="file" name="file" multiple="multiple"/>
-                        <button th:id="file" type="submit" />
+                        <button th:id="file" type="submit"/>
                         <i>upload</i>
                         </button>
                     </form>
@@ -174,6 +177,14 @@
                 </div>
                 <div class="col">
                     <input type="text" class="form-control" name="quantity" placeholder="quantity">
+                </div>
+                <div class="col">
+
+                <select type="text" th:name="cat" class="form-control">
+                    <option th:each="cat: ${categoryList}"
+                            th:value="${cat.name}" th:text="${cat.name}"></option>
+                </select>
+
                 </div>
             </div>
             <div class="container">
