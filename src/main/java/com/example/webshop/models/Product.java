@@ -5,7 +5,7 @@ import com.example.webshop.services.CategoryService;
 import javax.persistence.*;
 
 @Entity(name = "Product")
-@Table(name="product")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue
@@ -13,7 +13,7 @@ public class Product {
     private String name;
     private String size;
     private String colour;
-    private String sex;
+    private Sex sex;
     private double price;
     private long quantity;
     private long reserved;
@@ -23,6 +23,9 @@ public class Product {
     private Transaction transaction;
     private String picture;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Override
     public String toString() {
@@ -42,10 +45,6 @@ public class Product {
                 '}';
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
     public Product() {
     }
 
@@ -57,19 +56,7 @@ public class Product {
         this.category = category;
     }
 
-   /* public Product(String size, String name, String colour, String sex, double price, long quantity, long reserved) {
-        this.size = size;
-        this.name = name;
-        this.colour = colour;
-        this.sex = sex;
-        this.price = price;
-        this.quantity = quantity;
-        this.reserved = reserved;
-
-    }
-*/
-
-    public Product(String name, String size, String colour, String sex, double price, long quantity, long reserved, String picture) {
+    public Product(String name, String size, String colour, Sex sex, double price, long quantity, long reserved, String picture) {
 
         this.name = name;
         this.size = size;
@@ -79,7 +66,6 @@ public class Product {
         this.quantity = quantity;
         this.reserved = reserved;
         this.picture = picture;
-
 
     }
 
@@ -115,11 +101,11 @@ public class Product {
         this.colour = colour;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 

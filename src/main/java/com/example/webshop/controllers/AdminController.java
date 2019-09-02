@@ -11,8 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 public class AdminController {
@@ -39,32 +38,49 @@ public class AdminController {
     @GetMapping("/category")
     public String addCategory(Model model) {
         model.addAttribute("category", new Category());
+        model.addAttribute("categoryList",categoryService.findAll());
         return "th_addcategory";
     }
 
     @PostMapping("/adminAddCategory")
-    public String categoryAdded(@ModelAttribute Category category){
+    public String categoryAdded(@ModelAttribute Category category) {
         categoryService.addCategory(category);
         return "redirect:/admin";
     }
 
-    @PostMapping("admin_inc/{id}/{act}")
-    public String incQuantityOfProduct(@PathVariable String id, @PathVariable String act) throws NotFoundException {
-        productService.editProductQuantity(productService.findById((Long.parseLong(id))), act);
+    @PostMapping("admin_inc")
+    public String incQuantityOfProduct(@ModelAttribute("inc") String id) throws NotFoundException {
+        productService.editProductQuantity(productService.findById((Long.parseLong(id))), "inc");
+        return "redirect:/admin";
+    }
+    @PostMapping("admin_dec")
+    public String decQuantityOfProduct(@ModelAttribute("dec") String id) throws NotFoundException {
+        productService.editProductQuantity(productService.findById((Long.parseLong(id))), "dec");
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "admin_add", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute ("product")Product product,@ModelAttribute("cat") String category) {
-        product.setCategory(categoryService.getCategory(category));
-        System.out.println(categoryService.getCategory(category)+" :: "+ category);
-        System.out.println(product);
+    @PostMapping("editProduct")
+    public String editProduct(@ModelAttribute("id") String id, Model model) throws NotFoundException {
+        model.addAttribute("product", productService.findById(Long.parseLong(id)));
+        model.addAttribute("categoryList", categoryService.findAll());
+        return "th_editProduct";
+    }
+    @PostMapping("/editableAdmin")
+    public String addEditedProduct(@ModelAttribute Product product,@ModelAttribute("cat")String cat){
+        product.setCategory(categoryService.getCategory(cat));
         productService.addProduct(product);
         return "redirect:/admin";
     }
 
-    @PostMapping("admin_remove/{id}")
-    public String removeProduct(@PathVariable String id) throws NotFoundException {
+    @RequestMapping(value = "admin_add", method = RequestMethod.POST)
+    public String addProduct(@ModelAttribute("product") Product product, @ModelAttribute("cat") String category) {
+        product.setCategory(categoryService.getCategory(category));
+        productService.addProduct(product);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("admin_remove")
+    public String removeProduct(@ModelAttribute("id") String id) throws NotFoundException {
         productService.removeProduct(productService.findById(Long.parseLong(id)));
         return "redirect:/admin";
     }

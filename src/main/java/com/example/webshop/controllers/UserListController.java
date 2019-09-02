@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.ServletRequest;
 
 @Controller
@@ -23,19 +22,12 @@ public class UserListController {
     public String getListUser(Model model, @RequestParam(value = "name", required = false, defaultValue = "World") String name) {
         model.addAttribute("lista", userService.findAll());
         model.addAttribute("user", new User());
-        // User user=null;
-        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-
-
         return "th_list";
     }
 
     @PostMapping("/list")
     public String addUser(@ModelAttribute User user) {
-        System.out.println("PostPostPostPostPostPostPostPostPost");
-
         userService.addUser(user);
-
         return "redirect:list";
     }
 

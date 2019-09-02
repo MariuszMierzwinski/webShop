@@ -64,8 +64,6 @@
         </thead>
         <tbody>
         <tr th:each="user,itemStat : ${lista}">
-            <!--<td><input th:field="*{books[__${itemStat.index}__].title}" /></td>-->
-            <!--     <td><input th:field="*{lista[__${user}__].firstName}" /></td>-->
             <td class="pt-3-half" contenteditable="true" th:text="${user.getLogin()}"></td>
             <td class="pt-3-half" contenteditable="true" th:text="${user.getFirstName()}"></td>
             <td class="pt-3-half" contenteditable="true" th:text="${user.getSureName()}"></td>

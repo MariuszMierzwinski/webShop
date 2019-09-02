@@ -23,11 +23,12 @@
         user-select: none;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 1600px) {
         .bd-placeholder-img-lg {
             font-size: 3.5rem;
         }
     }
+
 </style>
 
 </head>
@@ -48,110 +49,7 @@
     <p class="lead">Store mission, some healthy lifestyle promotion</p>
 </div>
 <div class="container">
-
-    <div class="card-deck mb-3 text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <span>Product</span>
-                </div>
-                <div class="col-sm">
-                    <span>Price</span>
-                </div>
-                <div class="col-sm">
-                    <span>Product size</span>
-                </div>
-                <div class="col-sm">
-                    <span>Colour</span>
-                </div>
-                <div class="col-sm">
-                    <span>Sex</span>
-                </div>
-                <div class="col-sm">
-                    <span>Quantity</span>
-                </div>
-                <div class="col-sm">
-                    <span></span>
-                </div>
-                <div class="col-sm">
-                    <span></span>
-                </div>
-                <div class="container">
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-    <th:foreach th:each="product : ${products}">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <span th:text=${product.name}></span>
-                </div>
-                <div class="col-sm">
-                    <span th:text=${product.price}></span>
-                </div>
-                <div class="col-sm">
-                    <span th:text=${product.size}></span>
-                </div>
-                <div class="col-sm">
-                    <span th:text=${product.colour}></span>
-                </div>
-                <div class="col-sm">
-                    <span th:text=${product.sex}></span>
-                </div>
-                <div class="col-sm">
-                    <span th:text=${product.quantity}></span>
-                </div>
-                <th:foreach th:each="cat : ${product.category }">
-                    <div class="col-sm">
-
-                        <span th:text=${cat.name}></span>
-                    </div>
-                </th:foreach>
-                <div class="col-sm">
-                    <img class="mb-2" src="'../webapp'+${product.picture}" th:src="@{${product.picture}}" height="24"
-                         width="24">
-                </div>
-                <div class="col-sm">
-                    <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/dec}" method="post">
-                        <button th:id="product" type="submit">
-                            <i>-</i>
-                        </button>
-                    </form>
-                </div>
-                <div class="col-sm">
-                    <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/inc}" method="post">
-                        <button th:id="product" type="submit">
-                            <i>+</i>
-                        </button>
-                    </form>
-                </div>
-                <div class="col-sm">
-                    <form action="#" th:action="@{/admin_remove/}+${product.id}" method="post">
-                        <button th:id="product" type="submit">
-                            <i>remove</i>
-                        </button>
-                    </form>
-                </div>
-                <div class="form-group mb-auto">
-                    <form method="POST" action="#" th:action="@{/upload/}+${product.id}" enctype="multipart/form-data">
-                        <input type="file" name="file" multiple="multiple"/>
-                        <button th:id="file" type="submit"/>
-                        <i>upload</i>
-                        </button>
-                    </form>
-                </div>
-
-
-            </div>
-        </div>
-
-    </th:foreach>
-    <div class="container">
-        <br>
-    </div>
-    <div class="container">
+    <div class="" pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center>
         <h3>Add Products</h3>
     </div>
     <div class="container">
@@ -173,33 +71,192 @@
                     <input type="text" class="form-control" name="colour" placeholder="colour">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="sex" placeholder="sex">
+                    <!--<input type="text" class="form-control" name="sex" placeholder="sex">-->
+                    <select type="text" th:name="sex" class="form-control">
+                        <!--    ${T(com.mypackage.Ticket.State).values()-->
+                        <option th:each="curentsex: ${T(com.example.webshop.models.Sex).values()}"
+                                th:value="${curentsex}" th:text="${curentsex.displayName}"></option>
+                    </select>
                 </div>
                 <div class="col">
                     <input type="text" class="form-control" name="quantity" placeholder="quantity">
                 </div>
                 <div class="col">
 
-                <select type="text" th:name="cat" class="form-control">
-                    <option th:each="cat: ${categoryList}"
-                            th:value="${cat.name}" th:text="${cat.name}"></option>
-                </select>
-
+                    <select type="text" th:name="cat" class="form-control">
+                        <option th:each="cat: ${categoryList}"
+                                th:value="${cat.name}" th:text="${cat.name}"></option>
+                    </select>
                 </div>
             </div>
-            <div class="container">
-                <br>
-            </div>
-
+            <div><br></div>
             <button type="submit" class="col-sm">Submit
             </button>
         </form>
     </div>
-    <!--</c:forEach>-->
+    <div class="container">
+        <div><br></div>
+        <div><br></div>
+    </div>
+    <form id="dec" th:action="@{/admin_dec}" method="post"></form>
+    <form id="inc" th:action="@{/admin_inc}" method="post"></form>
+    <form id="upload" method="POST" th:action="@{/upload}" enctype="multipart/form-data"></form>
+    <form id="remove" action="#" th:action="@{/admin_remove}" method="post"></form>
+    <form id="edit" action="#" th:action="@{/editProduct}" method="post"></form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>price</th>
+            <th>size</th>
+            <th>colour</th>
+            <th>sex</th>
+            <th>picture</th>
+            <th>quantity</th>
+            <th>dec</th>
+            <th>inc</th>
+            <th>upload</th>
+            <th>del</th>
+            <th>edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td class="pt-3-half" contenteditable="true" th:text=${product.name}></td>
+            <td class="pt-3-half" contenteditable="true" th:text=${product.price}></td>
+            <td class="pt-3-half" contenteditable="true" th:text=${product.size}></td>
+            <td class="pt-3-half" contenteditable="true" th:text=${product.colour}></td>
+            <td class="pt-3-half" contenteditable="true" th:text=${product.sex}></td>
+            <td class="pt-3-half" contenteditable="true">
+                <img class="mb-2" src="'../webapp'+${product.picture}" th:src="@{${product.picture}}"
+                     height="24"
+                     width="24">
+            </td>
+            <td class="pt-3-half" contenteditable="true" th:text=${product.quantity}></td>
+            <td class="pt-3-half" contenteditable="true">
+                <button th:id="product" type="submit" th:name="dec" th:value="${product.id}" form="dec">
+                    <i>-</i>
+                </button>
+            </td>
+            <td class="pt-3-half" contenteditable="true">
+                <button th:id="product" type="submit" th:name="inc" th:value="${product.id}" form="inc">
+                    <i>+</i>
+                </button>
+            </td>
+            <td class="pt-3-half">
+                <!-- <div>
+                     <input type="file" name="file" multiple="multiple" form="upload"/>
+                     <button th:id="file" type="submit" th:name="product_id" th:value="${product.id}"
+                             form="upload"/>
+                     <i>upload</i>
+                     </button>
+                 </div>-->
+                <div>
+                    <input th:type="file" th:name="file" th:value="document" multiple="multiple" id="downolad" style="display:none;" form="upload"/>
+                    <button id="button" name="button" value="Upload" th:name="product_id" th:value="${product.id}"
+                            onclick="thisFileUpload();"  form="upload"
+                             >Upload
+                    </button>
+                </div>
+            </td>
+            <td class="pt-3-half">
+                <button th:id="product" type="submit" th:name="id" th:value="${product.id}" form="remove">
+                    <i>remove</i>
+                </button>
+            </td>
+            <td class="pt-3-half">
+                <button th:id="id" type="submit" th:name="id" th:value="${product.id}" form="edit">
+                    <i>edit</i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table><!--
+<th:foreach th:each="product : ${products}">
+    <div class="card-deck mb-3 text-center">
+        <div class="row">
+            <div class="col-sm">
+                <span th:text=${product.name}></span>
+            </div>
+            <div class="col-sm">
+                <span th:text=${product.price}></span>
+            </div>
+            <div class="col-sm">
+                <span th:text=${product.size}></span>
+            </div>
+            <div class="col-sm">
+                <span th:text=${product.colour}></span>
+            </div>
+            <div class="col-sm">
+                <span th:text=${product.sex}></span>
+            </div>
+            <div class="col-sm">
+                <span th:text=${product.quantity}></span>
+            </div>
+            <th:foreach th:each="cat : ${product.category }">
+                <div class="col-sm">
+                    <span th:text=${cat.name}></span>
+                </div>
+            </th:foreach>
+            <div class="col-sm">
+                <img class="mb-2" src="'../webapp'+${product.picture}" th:src="@{${product.picture}}" height="24"
+                     width="24">
+            </div>
+            <div class="col-sm">
+                <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/dec}" method="post">
+                    <button th:id="product" type="submit">
+                        <i>-</i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-sm">
+                <form action="#" th:action="@{/admin_inc/}+${product.id}+@{/inc}" method="post">
+                    <button th:id="product" type="submit">
+                        <i>+</i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-sm">
+                <form action="#" th:action="@{/admin_remove/}+${product.id}" method="post">
+                    <button th:id="product" type="submit">
+                        <i>remove</i>
+                    </button>
+                </form>
+            </div>
+            <div class="form-group mb-auto">
+                <form method="POST" action="#" th:action="@{/upload/}+${product.id}" enctype="multipart/form-data">
+                    <input type="file" name="file" multiple="multiple"/>
+                    <button th:id="file" type="submit"/>
+                    <i>upload</i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-sm">
+                <form action="#" th:action="@{/editProduct/}+${product.id}" method="post">
+                    <button th:id="id" type="submit">
+                        <i>edit</i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</th:foreach>-->
+    <div class="container">
+        <br>
+    </div>
 </div>
 </div>
 </div>
 </div>
 </body>
+
+<script>
+    function thisFileUpload() {
+        document.getElementById("downolad").click();
+    };
+</script>
+
 </html>
 

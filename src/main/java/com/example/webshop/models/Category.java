@@ -11,15 +11,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     String name;
+    private long parents_id;
     @OneToMany( mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                '}';
-    }
+
 
     public void addProduct(Product product) {
         products.add(product);
@@ -32,6 +28,22 @@ public class Category {
     }
 
     public Category() {
+    }
+
+    public long getParents_id() {
+        return parents_id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setParents_id(long parents_id) {
+        this.parents_id = parents_id;
     }
 
     public String getName() {

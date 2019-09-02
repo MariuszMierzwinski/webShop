@@ -27,10 +27,11 @@ public class UploadController {
     private static String UPLOADED_FOLDER = "/home/mariusz/Documents/webshop/src/main/webapp/Picture/";
 
 
-    @PostMapping("/upload/{id}") // //new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes, @PathVariable String id) {
-
+    @PostMapping("/upload")
+    public String singleFileUpload(@ModelAttribute("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes,@ModelAttribute("product_id") String id) {
+        System.out.println("file: "+file.getOriginalFilename());
+        System.out.println("id: "+id);
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
